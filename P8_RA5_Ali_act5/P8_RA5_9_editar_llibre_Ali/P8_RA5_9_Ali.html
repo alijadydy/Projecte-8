@@ -1,0 +1,45 @@
+<!--
+Autor: Ali
+Data: 26/05/2025
+Exercici: P8_RA5_9_Ali.html
+Descripció: Llistat amb enllaç per editar llibres.
+-->
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar llibres</title>
+</head>
+<body>
+    <h2>Llistat de llibres per editar</h2>
+
+    <?php
+    $conn = new mysqli("localhost", "root", "", "biblioteca");
+
+    if ($conn->connect_error) {
+        die("Connexió fallida: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM llibres";
+    $result = $conn->query($sql);
+
+    echo "<table border='1'>";
+    echo "<tr><th>ID</th><th>Títol</th><th>Autor</th><th>Any</th><th>Accions</th></tr>";
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>{$row['id']}</td>
+                <td>{$row['titol']}</td>
+                <td>{$row['autor']}</td>
+                <td>{$row['any']}</td>
+                <td><a href='P8_RA5_9_Ali.php?id={$row['id']}'>Editar</a></td>
+              </tr>";
+    }
+
+    echo "</table>";
+
+    $conn->close();
+    ?>
+</body>
+</html>
